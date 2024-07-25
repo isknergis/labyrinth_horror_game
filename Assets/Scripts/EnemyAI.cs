@@ -10,8 +10,15 @@ public class EnemyAI : MonoBehaviour
     Transform target;
     public bool isDead = false;
 
+
+    AudioSource AS;
+    public AudioClip hurtSound;
+
+
+
     void Start()
     {
+        AS = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -50,9 +57,11 @@ public class EnemyAI : MonoBehaviour
     public void Hurt()
     {
         agent.enabled = false;
+        AS.PlayOneShot(hurtSound);
         anim.SetTrigger("Hurt");
         Debug.Log("Hurt animation triggered");
         StartCoroutine(EnableNavAgentAfterDelay(0.75f));
+      
     }
 
     IEnumerator EnableNavAgentAfterDelay(float delay)

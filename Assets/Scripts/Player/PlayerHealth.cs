@@ -6,6 +6,9 @@ using DG.Tweening;
 
 using static UnityEngine.GraphicsBuffer;
 
+using UnityEngine.UI;
+
+
 public class PlayerHealth : MonoBehaviour
 {
     public float currentHealth;
@@ -21,6 +24,14 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] public float damageAmount = 10f; // Hasar miktarý
     [SerializeField] public float damageInterval = 5f; // Hasar verme aralýðý (saniye)
 
+    AudioSource AS;
+
+    public AudioClip attackSound;
+
+
+    public Image healthbar;
+    public Text health;
+
     void Awake()
     {
         PH = this;
@@ -28,7 +39,12 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
+        AS = GetComponent<AudioSource>();
+
         currentHealth = maxHealth;
+
+        ImageHealthBar();
+
         target = GameObject.FindGameObjectWithTag("Enemy").transform;
 
         // Belirli aralýklarla hasar verme iþlemi baþlatýlýyor
@@ -42,6 +58,16 @@ public class PlayerHealth : MonoBehaviour
             currentHealth = 0;
             Dead();
         }
+
+       
+    }
+
+
+    void ImageHealthBar()
+    {
+        healthbar.fillAmount = currentHealth / maxHealth;
+        health.text = currentHealth.ToString();
+
     }
 
     void CheckAndDamagePlayer()
@@ -53,16 +79,22 @@ public class PlayerHealth : MonoBehaviour
         if (distance <= 3)
         {
             DamagePlayer(damageAmount);
+          
+            AS.PlayOneShot(attackSound);
         }
+
+       
     }
 
     public void DamagePlayer(float damage)
     {
         currentHealth -= damage;
+        ImageHealthBar();
         if (currentHealth <= 0)
         {
             Dead();
         }
+
     }
 
     void Dead()
@@ -70,7 +102,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = 0;
         isDead = true;
         Debug.Log("Öldü");
-        CancelInvoke("CheckAndDamagePlayer"); // Karakter öldüðünde hasar verme iþlemini durdur
+        CancelInvoke("CheckAndDamagePlayer");
     }
 
 
@@ -78,5 +110,7 @@ public class PlayerHealth : MonoBehaviour
     public void IncreaseHealth()
     {
         currentHealth += increaseHealth;
+       // currentHealth = Mathf.Min(currentHealth, maxHealth);
+        ImageHealthBar();
     }
 }
