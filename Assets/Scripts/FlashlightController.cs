@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+
+using UnityEngine.UI;
+using JetBrains.Annotations;
+
+
+
+
+
 public class FlashlightController : MonoBehaviour
 {
     [SerializeField] private AudioClip AClip;
@@ -20,11 +28,14 @@ public class FlashlightController : MonoBehaviour
     private bool canOpen=true;
 
 
+    public Text flashLightText;
+
 
     void Start()
     {
         ASource = GetComponent<AudioSource>();
         currentIntensity=spotLight.intensity;
+        UpdateFlashLightUI();
     }
 
 
@@ -36,12 +47,14 @@ public class FlashlightController : MonoBehaviour
             {
                 ToggleLight();
             }
+            UpdateFlashLightUI();
 
-           
+
         }
         if(isOpen)
         {
             batteryHealth-=Time.deltaTime;
+            UpdateFlashLightUI();
 
         }
 
@@ -61,9 +74,16 @@ public class FlashlightController : MonoBehaviour
             }
             batteryHealth=0;
             canOpen = false;
+           
         }
         
     }
+
+    public void UpdateFlashLightUI()
+    {
+        flashLightText.text = batteryHealth.ToString();
+    }
+
 
     private void ToggleLight()
     {
@@ -71,6 +91,7 @@ public class FlashlightController : MonoBehaviour
         ASource.PlayOneShot(AClip);
         currentIntensity = isOpen ? maxIntensity : 0;
         spotLight.DOIntensity(currentIntensity, 2);
+        UpdateFlashLightUI();
     }
     public void IncreaseBatteryCount()
     {
