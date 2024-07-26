@@ -5,7 +5,7 @@ using DG.Tweening;
 
 
 using UnityEngine.UI;
-using JetBrains.Annotations;
+
 
 
 
@@ -29,13 +29,14 @@ public class FlashlightController : MonoBehaviour
 
 
     public Text flashLightText;
-
+    public Text batteryCountText;
 
     void Start()
     {
         ASource = GetComponent<AudioSource>();
         currentIntensity=spotLight.intensity;
         UpdateFlashLightUI();
+        UpdateBatteryCountUI();
     }
 
 
@@ -62,21 +63,24 @@ public class FlashlightController : MonoBehaviour
         {
             if(batteryCount > 0)
             {
-                batteryHealth = 20;
+                batteryHealth = 5;
                 batteryCount--;
+                UpdateBatteryCountUI();
                 return;
             }
+           
 
-
-            if(isOpen)
+            if (isOpen)
             {
                 ToggleLight();
+
             }
             batteryHealth=0;
+            UpdateBatteryCountUI();
             canOpen = false;
            
         }
-        
+        UpdateFlashLightUI();
     }
 
     public void UpdateFlashLightUI()
@@ -84,6 +88,11 @@ public class FlashlightController : MonoBehaviour
         flashLightText.text = batteryHealth.ToString();
     }
 
+
+    public void UpdateBatteryCountUI()
+    {
+    batteryCountText.text = batteryCount.ToString();    
+    }
 
     private void ToggleLight()
     {
@@ -96,6 +105,7 @@ public class FlashlightController : MonoBehaviour
     public void IncreaseBatteryCount()
     {
         batteryCount++;
+        UpdateBatteryCountUI();
         canOpen = true;
     }
 }
