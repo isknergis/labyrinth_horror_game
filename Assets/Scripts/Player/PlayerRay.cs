@@ -8,6 +8,10 @@ public class PlayerRay : MonoBehaviour
     public float toTarget;
 
 
+  //  private void Awake()
+   // {
+     //   DontDestroyOnLoad(gameObject);
+   // }
 
     void Update()
     {

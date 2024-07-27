@@ -38,6 +38,10 @@ public class PlayerMovement : MonoBehaviour
     private bool isRunning;
 
 
+    //private void Awake()
+    //{
+    //    DontDestroyOnLoad(gameObject);
+    //}
 
     private void Start()
     {
@@ -47,7 +51,24 @@ public class PlayerMovement : MonoBehaviour
 
         controller = GetComponent<CharacterController>();
 
-        audioSource = GetComponent<AudioSource>();  
+        audioSource = GetComponent<AudioSource>();
+
+
+
+        if (PlayerPositionManager.hasSavedPosition)
+        {
+            controller.enabled = false;
+            transform.position = PlayerPositionManager.playerPosition;
+            transform.rotation = PlayerPositionManager.playerRotation;
+            controller.enabled = true;
+        }
+
+    }
+    public void SavePosition()
+    {
+        PlayerPositionManager.playerPosition = transform.position;
+        PlayerPositionManager.playerRotation = transform.rotation;
+        PlayerPositionManager.hasSavedPosition = true;
     }
 
     private void DoMove()

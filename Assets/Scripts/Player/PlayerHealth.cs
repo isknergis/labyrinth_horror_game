@@ -32,10 +32,23 @@ public class PlayerHealth : MonoBehaviour
     public Image healthbar;
     public Text health;
 
-    void Awake()
-    {
-        PH = this;
-    }
+
+    public static PlayerHealth instance;
+
+    //void Awake()
+    //{
+
+    //    if (instance == null)
+    //    {
+    //        instance = this;
+    //        DontDestroyOnLoad(gameObject); // Bu nesneyi yok etme
+    //    }
+    //    else if (instance != this)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //    PH = this;
+    //}
 
     void Start()
     {

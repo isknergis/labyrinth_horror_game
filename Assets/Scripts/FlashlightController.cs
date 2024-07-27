@@ -31,6 +31,24 @@ public class FlashlightController : MonoBehaviour
     public Text flashLightText;
     public Text batteryCountText;
 
+
+    public static FlashlightController instance;
+
+
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Bu nesneyi yok etme
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
         ASource = GetComponent<AudioSource>();
