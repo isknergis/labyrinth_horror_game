@@ -5,18 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
+    private KeyManager keyManager;
 
 
     public string sceneToLoad; // Unity Editor'dan ayarlamak için
 
+
+    private void Start()
+    {
+        keyManager = FindObjectOfType<KeyManager>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger detected with: " + other.gameObject.tag);
-
-        if (other.CompareTag("Player")) // Tag "Player" olmalý, "Scene2" deðil
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("Loading Scene: " + sceneToLoad);
-            SceneManager.LoadScene(sceneToLoad);
+            if (keyManager.HasRequiredKeys())
+            {
+                Debug.Log("Loading Scene: " + sceneToLoad);
+                SceneManager.LoadScene(sceneToLoad);
+            }
+            else
+            {
+                Debug.Log("Not enough keys collected to advance.");
+            }
         }
     }
 }

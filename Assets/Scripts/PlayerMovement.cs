@@ -153,8 +153,8 @@ public class PlayerMovement : MonoBehaviour
         DoMove();
         DoGravity();
         DoSprint();
-        Debug.Log("Is Grounded: " + isGrounded);
-        Debug.Log("Velocity Y: " + velocity.y);
+       // Debug.Log("Is Grounded: " + isGrounded);
+        //Debug.Log("Velocity Y: " + velocity.y);
 
 
 
