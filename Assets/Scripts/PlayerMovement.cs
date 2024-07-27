@@ -53,51 +53,50 @@ public class PlayerMovement : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
+     
 
 
-        if (PlayerPositionManager.hasSavedPosition)
-        {
-            controller.enabled = false;
-            transform.position = PlayerPositionManager.playerPosition;
-            transform.rotation = PlayerPositionManager.playerRotation;
-            controller.enabled = true;
-        }
+        //if (PlayerPositionManager.hasSavedPosition)
+        //{
+        //    controller.enabled = false;
+        //    transform.position = PlayerPositionManager.playerPosition;
+        //    transform.rotation = PlayerPositionManager.playerRotation;
+        //    controller.enabled = true;
+        //}
 
     }
-    public void SavePosition()
-    {
-        PlayerPositionManager.playerPosition = transform.position;
-        PlayerPositionManager.playerRotation = transform.rotation;
-        PlayerPositionManager.hasSavedPosition = true;
-    }
 
+
+    //public void SavePosition()
+    //{
+    //    PlayerPositionManager.playerPosition = transform.position;
+    //    PlayerPositionManager.playerRotation = transform.rotation;
+    //    PlayerPositionManager.hasSavedPosition = true;
+    //}
     private void DoMove()
     {
-        if (!isGrounded) return;
+       
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+  
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f; // Yere yapýþmayý saðlar
+        }
+
         float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");//dikey
+        float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * speed * Time.deltaTime);
-
-        if(move !=Vector3.zero)
-        {
-            DoFootSteps();
-        }
     }
 
     private void DoGravity()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
         velocity.y += gravity * Time.deltaTime;
-
-        if (isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
         controller.Move(velocity * Time.deltaTime);
     }
+
 
     private void DoSprint()
     {
@@ -135,9 +134,9 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                //bir seferlik oynat
+       
                 audioSource.PlayOneShot(RunFootSteps[Random.Range(0,footSteps.Count)]);
-                footStepTimer = .4f; //daha sýk koþma sesi
+                footStepTimer = .4f; 
             
             }
 
@@ -153,9 +152,11 @@ public class PlayerMovement : MonoBehaviour
 
         DoMove();
         DoGravity();
-        DoSprint(); 
+        DoSprint();
+        Debug.Log("Is Grounded: " + isGrounded);
+        Debug.Log("Velocity Y: " + velocity.y);
 
-       
-     
+
+
     }
 }
