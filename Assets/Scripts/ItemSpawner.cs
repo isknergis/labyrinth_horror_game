@@ -6,24 +6,31 @@ public class ItemSpawner : MonoBehaviour
 {
     public GameObject healthBarPrefab;
     public GameObject batteryPrefab;
+    public GameObject keyPrefab;
+
+
     public int numberOfHealthBars = 5;
     public int numberOfBatteries = 5;
+    public int numberOfKeys = 3;
 
-    public GameObject plane; // Plane nesnesini buraya sürükleyip býrakacaksýnýz
-    private Vector3 planeSize; // Plane'in boyutlarýný saklamak için
+    public GameObject plane; 
+    private Vector3 planeSize;
 
-    public GameObject healthBarHeightReference; // HealthBar yüksekliði referansý
-    public GameObject batteryHeightReference; // Battery yüksekliði referansý
+    public GameObject healthBarHeightReference;
+    public GameObject batteryHeightReference;
+    public GameObject keyHeightReference;
 
-    public LayerMask Ground; // Zemin katmanýný belirleyin
-    public LayerMask wallLayer; // Duvar katmanýný belirleyin
+
+    public LayerMask Ground; 
+    public LayerMask wallLayer; 
 
     void Start()
     {
-        // Plane nesnesinin boyutlarýný al
+       
         planeSize = plane.GetComponent<Renderer>().bounds.size;
         SpawnItems(healthBarPrefab, numberOfHealthBars, healthBarHeightReference);
         SpawnItems(batteryPrefab, numberOfBatteries, batteryHeightReference);
+        SpawnItems(keyPrefab, numberOfKeys, keyHeightReference);
     }
 
     void SpawnItems(GameObject itemPrefab, int itemCount, GameObject heightReference)
