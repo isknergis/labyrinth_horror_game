@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Password : MonoBehaviour
 {
     public GameObject passwordUI;
-    private string enteredPassword;
+   public string enteredPassword;
     public bool isClosing=false;
 
     private void Start()
