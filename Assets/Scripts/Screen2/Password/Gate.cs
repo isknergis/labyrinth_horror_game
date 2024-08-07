@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 public class Gate : MonoBehaviour
@@ -12,11 +13,38 @@ public class Gate : MonoBehaviour
 
     public GameObject dropText;
 
+    [SerializeField] private Animation doorAnimation;
+    [SerializeField] private bool canOpen;
+
+
     
+    private void Start()
+    {
+        canOpen = false;
+        // Animation bileþenini al ve kontrol et
+        if (doorAnimation == null)
+        {
+            doorAnimation = GetComponent<Animation>();
+            if (doorAnimation == null)
+            {
+                Debug.LogError("Door animation is not assigned and could not be found on the GameObject.");
+            }
+        }
+
+        // Animasyonun baþlangýçta oynatýlmamasýný saðla
+        if (doorAnimation != null)
+        {
+            doorAnimation.playAutomatically = false;
+            doorAnimation.Stop();  // Animasyonu baþlangýçta durdur
+        }
+    }
+    
+
     private void Update()
     {
-        
-        if(Input.GetKeyDown(KeyCode.G))
+
+
+        if (Input.GetKeyDown(KeyCode.G))
         {
            
             playerScript.enabled = true;
@@ -38,6 +66,12 @@ public class Gate : MonoBehaviour
             Cursor.visible = true;
             dropText.SetActive(true);
         }
+
+
+
+
+
+
     }
 
     public void Key(string key)
@@ -52,14 +86,58 @@ public class Gate : MonoBehaviour
 
     public void CheckPassword()
     {
+
         if(enteredPassword.text== gatePassword )
         {
-            Debug.Log("kapý açýldý");
+            canOpen = true;
+            DoorInteraction();
+           
+           
+           
             keypadUI.SetActive(false);
+            Debug.Log("kapý açýldý");
+           
+            
+
+        }
+      
+
+        else
+        {
+            
+            ResetPassword();
+            canOpen = false;
+        }
+    }
+      
+    
+
+
+
+    private void DoorInteraction()
+    {
+
+
+
+        if (canOpen && doorAnimation != null)
+        {
+            if (doorAnimation.GetClip("d") != null)
+            {
+                doorAnimation.Play("d"); // Doðru animasyon klip ismini kullanýn
+                Debug.Log("Animasyon oynatýldý");
+            }
+            else
+            {
+                Debug.LogError("HorrorGate adlý animasyon klibi bulunamadý.");
+            }
         }
         else
         {
-            ResetPassword();    
+            Debug.LogError("Kapý açma animasyonu bulunamadý veya canOpen false.");
         }
+
+
+
+
     }
 }
