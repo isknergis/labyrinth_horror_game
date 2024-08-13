@@ -50,6 +50,7 @@ public class Gate : MonoBehaviour
             playerScript.enabled = true;
          
             keypadUI.SetActive(false);
+            dropText.SetActive(false);  
         
            
         }

@@ -21,46 +21,40 @@ public class PlayerHealth : MonoBehaviour
     Transform target;
 
     [SerializeField] public float increaseHealth = 20f;
-    [SerializeField] public float damageAmount = 10f; // Hasar miktarý
-    [SerializeField] public float damageInterval = 5f; // Hasar verme aralýðý (saniye)
+    [SerializeField] public float damageAmount = 10f;
+    [SerializeField] public float damageInterval = 5f;
 
-    AudioSource AS;
+    public AudioSource AS;
 
     public AudioClip attackSound;
-
 
     public Image healthbar;
     public Text health;
 
-
     public static PlayerHealth instance;
 
-    //void Awake()
-    //{
+    public bool isDamage; 
 
-    //    if (instance == null)
-    //    {
-    //        instance = this;
-    //        DontDestroyOnLoad(gameObject); // Bu nesneyi yok etme
-    //    }
-    //    else if (instance != this)
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //    PH = this;
-    //}
-
+ 
     void Start()
     {
+        isDamage = false; 
+        isDead = false;
+
+      
         AS = GetComponent<AudioSource>();
 
         currentHealth = maxHealth;
 
         ImageHealthBar();
 
-        target = GameObject.FindGameObjectWithTag("Enemy").transform;
 
-        // Belirli aralýklarla hasar verme iþlemi baþlatýlýyor
+        target = GameObject.FindGameObjectWithTag("Enemy")?.transform;
+        if (target == null)
+        {
+            Debug.LogError("Enemy tag'li bir obje bulunamadý.");
+        }
+
         InvokeRepeating("CheckAndDamagePlayer", 0f, damageInterval);
     }
 
@@ -68,62 +62,64 @@ public class PlayerHealth : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
+            isDamage = false;
             currentHealth = 0;
             Dead();
         }
-
-       
     }
-
 
     void ImageHealthBar()
     {
         healthbar.fillAmount = currentHealth / maxHealth;
         health.text = currentHealth.ToString();
-
     }
 
     void CheckAndDamagePlayer()
     {
         if (target == null) return;
 
-        float distance = Vector3.Distance(transform.position, target.position);
+    float distance = Vector3.Distance(transform.position, target.position);
+    if (distance <= 5)
+    {
+        if (isDamage) return; 
 
-        if (distance <= 3)
-        {
-            DamagePlayer(damageAmount);
-          
-            AS.PlayOneShot(attackSound);
-        }
-
-       
+        DamagePlayer(damageAmount);
+        AS.PlayOneShot(attackSound);
+        isDamage = false; 
+    }
+    else
+    {
+        isDamage = false; 
+    }
     }
 
     public void DamagePlayer(float damage)
     {
+        isDamage = true; 
         currentHealth -= damage;
         ImageHealthBar();
         if (currentHealth <= 0)
         {
+            isDamage = false;
             Dead();
         }
-
     }
 
     void Dead()
     {
         currentHealth = 0;
         isDead = true;
+        
         Debug.Log("Öldü");
         CancelInvoke("CheckAndDamagePlayer");
+        isDamage = false;
     }
-
-
 
     public void IncreaseHealth()
     {
         currentHealth += increaseHealth;
-       // currentHealth = Mathf.Min(currentHealth, maxHealth);
+        currentHealth = Mathf.Min(currentHealth, maxHealth); 
+        Debug.Log("Saðlýk arttýrýldý");
         ImageHealthBar();
     }
 }

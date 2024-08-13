@@ -18,10 +18,14 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
+       
         AS = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
+  
+        Debug.Log("Baþlangýç Pozisyonu: " + transform.position);
+
     }
 
     void Update()
