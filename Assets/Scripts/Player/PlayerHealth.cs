@@ -60,14 +60,19 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isDead || isTakingDamage) return;
 
-        foreach (Transform enemy in enemies)
+        foreach (Transform enemyTransform in enemies)
         {
-            float distance = Vector3.Distance(transform.position, enemy.position);
-            if (distance <= 3f)
+            EnemyHealth enemyHealth = enemyTransform.GetComponent<EnemyHealth>();
+
+            if (enemyHealth != null && !enemyHealth.IsDead())  // isDead kontrolünü yapýyoruz
             {
-                DamagePlayer(10f);
-                AS.PlayOneShot(attackSound);
-                break;
+                float distance = Vector3.Distance(transform.position, enemyTransform.position);
+                if (distance <= 3f)
+                {
+                    DamagePlayer(10f);
+                    AS.PlayOneShot(attackSound);
+                    break;
+                }
             }
         }
     }

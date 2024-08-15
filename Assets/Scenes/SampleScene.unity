@@ -2017,7 +2017,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 69787370}
   m_LocalRotation: {x: 0.0018310924, y: 0.97770077, z: 0.0085322885, w: 0.2098219}
-  m_LocalPosition: {x: -9.4, y: 1.51, z: -37.65}
+  m_LocalPosition: {x: 11, y: 1.3, z: -24.1}
   m_LocalScale: {x: 1.5, y: 1, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3396,6 +3396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   hurtSound: {fileID: 0}
+  knockbackForce: 5
 --- !u!95 &122353801
 Animator:
   serializedVersion: 5
@@ -8776,6 +8777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   hurtSound: {fileID: 8300000, guid: f2cc02a6f12a7ce4b981c9a372ddc9f9, type: 3}
+  knockbackForce: 5
 --- !u!114 &377429603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11244,6 +11246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   hurtSound: {fileID: 8300000, guid: f2cc02a6f12a7ce4b981c9a372ddc9f9, type: 3}
+  knockbackForce: 5
 --- !u!114 &530160855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15489,7 +15492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 578376449398627443, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.21
+      value: 21.6
       objectReference: {fileID: 0}
     - target: {fileID: 578376449398627443, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_LocalPosition.y
@@ -15497,7 +15500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 578376449398627443, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -43.3
+      value: -38
       objectReference: {fileID: 0}
     - target: {fileID: 578376449398627443, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_LocalRotation.w
@@ -17510,7 +17513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 578376449398627443, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -29.8
+      value: -11.2
       objectReference: {fileID: 0}
     - target: {fileID: 578376449398627443, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19194,7 +19197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 1.61, z: -0.09}
+  m_LocalPosition: {x: 0.1, y: 2.82, z: -0.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -39337,7 +39340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 578376449398627443, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.8
+      value: 9.2
       objectReference: {fileID: 0}
     - target: {fileID: 578376449398627443, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_LocalPosition.y
@@ -40721,6 +40724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   hurtSound: {fileID: 8300000, guid: f2cc02a6f12a7ce4b981c9a372ddc9f9, type: 3}
+  knockbackForce: 5
 --- !u!195 &2047960939
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -40966,6 +40970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   hurtSound: {fileID: 8300000, guid: f2cc02a6f12a7ce4b981c9a372ddc9f9, type: 3}
+  knockbackForce: 5
 --- !u!114 &2050050945
 MonoBehaviour:
   m_ObjectHideFlags: 0

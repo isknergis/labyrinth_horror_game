@@ -12,12 +12,16 @@ public class EnemyAI : MonoBehaviour
 
     private AudioSource AS;
     public AudioClip hurtSound;
+    private Rigidbody rb; // Rigidbody bileþeni
+
+    public float knockbackForce = 25f; // Geri tepme kuvveti
 
     void Start()
     {
         AS = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>(); // Rigidbody bileþeni alýnýr
         target = GameObject.FindGameObjectWithTag("Player").transform;
 
         Debug.Log("Baþlangýç Pozisyonu: " + transform.position);
@@ -31,6 +35,7 @@ public class EnemyAI : MonoBehaviour
 
         if (distance > 3 && distance < 10)
         {
+            // Bu kod bloðunu buraya ekleyin
             if (agent.isOnNavMesh)
             {
                 agent.updatePosition = true;
@@ -40,6 +45,7 @@ public class EnemyAI : MonoBehaviour
             else
             {
                 Debug.LogWarning("Enemy is not on NavMesh!");
+                anim.SetBool("isWalking", false);
             }
         }
         else
@@ -47,6 +53,7 @@ public class EnemyAI : MonoBehaviour
             agent.updatePosition = false;
             anim.SetBool("isWalking", false);
         }
+
     }
 
     public void DeadAnim()
@@ -56,11 +63,14 @@ public class EnemyAI : MonoBehaviour
         Debug.Log("Dead animation triggered");
     }
 
-    public void Hurt()
+    public void Hurt(Vector3 direction)
     {
         agent.enabled = false;
         anim.SetBool("isWalking", false); // Yürüme animasyonunu durdur
         AS.PlayOneShot(hurtSound);
+
+        // Geri tepme kuvveti uygulanýr
+        rb.AddForce(direction * knockbackForce, ForceMode.Impulse);
 
         Debug.Log("Hurt animation triggered");
         StartCoroutine(EnableNavAgentAfterDelay(0.75f));
