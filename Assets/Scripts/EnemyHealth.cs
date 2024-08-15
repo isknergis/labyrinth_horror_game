@@ -50,11 +50,12 @@ public class EnemyHealth : MonoBehaviour
   
     void Dead()
     {
+       // playerHealth.isDamage = false;
         enemy.isDead = true;
-        playerHealth.isDamage = false;
+      
         Debug.Log("Enemy Died!");
         
         isDamage = false;
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, 3f);
     }
 }

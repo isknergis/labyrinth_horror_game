@@ -13,10 +13,10 @@ public class HealthBar : Collectable
     public override void Collect()
     {
         base.Collect();
-
         if (playerHealth)
         {
-           playerHealth.IncreaseHealth();
+            float healAmount = 20f; // Artýþ miktarýný burada belirleyin.
+            playerHealth.IncreaseHealth(healAmount);
         }
 
 

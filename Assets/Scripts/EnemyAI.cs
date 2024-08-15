@@ -5,27 +5,22 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    NavMeshAgent agent;
-    Animator anim;
-    Transform target;
+    private NavMeshAgent agent;
+    private Animator anim;
+    private Transform target;
     public bool isDead = false;
 
-
-    AudioSource AS;
+    private AudioSource AS;
     public AudioClip hurtSound;
-
-
 
     void Start()
     {
-       
         AS = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
-  
-        Debug.Log("Baþlangýç Pozisyonu: " + transform.position);
 
+        Debug.Log("Baþlangýç Pozisyonu: " + transform.position);
     }
 
     void Update()
@@ -34,16 +29,20 @@ public class EnemyAI : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, target.position);
 
-        if (distance > 2 && distance < 10)
+        if (distance > 3 && distance < 10)
         {
-            agent.updatePosition = true;
             if (agent.isOnNavMesh)
             {
+                agent.updatePosition = true;
                 agent.SetDestination(target.position);
+                anim.SetBool("isWalking", true);
             }
-            anim.SetBool("isWalking", true);
+            else
+            {
+                Debug.LogWarning("Enemy is not on NavMesh!");
+            }
         }
-        else if (distance <= 2)
+        else
         {
             agent.updatePosition = false;
             anim.SetBool("isWalking", false);
@@ -55,28 +54,28 @@ public class EnemyAI : MonoBehaviour
         isDead = true;
         anim.SetTrigger("Dead");
         Debug.Log("Dead animation triggered");
-    
     }
 
     public void Hurt()
     {
         agent.enabled = false;
+        anim.SetBool("isWalking", false); // Yürüme animasyonunu durdur
         AS.PlayOneShot(hurtSound);
-        anim.SetTrigger("Hurt");
+
         Debug.Log("Hurt animation triggered");
         StartCoroutine(EnableNavAgentAfterDelay(0.75f));
-      
     }
 
     IEnumerator EnableNavAgentAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         agent.enabled = true;
-        agent.SetDestination(target.position); // NavMeshAgent'i yeniden etkinleþtirdikten sonra hedefi belirleyin
 
-        // Hurt animasyonundan sonra yürümeye devam edin
-        if (Vector3.Distance(transform.position, target.position) > 2)
+        // Hurt animasyonu sonrasý yürüme animasyonunu baþlatma
+        float distance = Vector3.Distance(transform.position, target.position);
+        if (distance > 3 && distance < 10)
         {
+            agent.SetDestination(target.position);
             anim.SetBool("isWalking", true);
         }
     }
