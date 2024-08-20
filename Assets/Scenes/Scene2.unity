@@ -821,15 +821,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 252629911600637343, guid: 974c90fb5c85e1145b28c692035ab2f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 70.49
+      value: 83.56
       objectReference: {fileID: 0}
     - target: {fileID: 252629911600637343, guid: 974c90fb5c85e1145b28c692035ab2f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.21
+      value: 0.575
       objectReference: {fileID: 0}
     - target: {fileID: 252629911600637343, guid: 974c90fb5c85e1145b28c692035ab2f2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 119.77
+      value: 63.506
       objectReference: {fileID: 0}
     - target: {fileID: 252629911600637343, guid: 974c90fb5c85e1145b28c692035ab2f2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10621,7 +10621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dafe421b019e74d43a5e684c9e0e3990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gatePassword: 1111
+  gatePassword: 7609
   enteredPassword: {fileID: 1815844466}
   keypadUI: {fileID: 1232822163}
   playerScript: {fileID: 1925314998}
@@ -18500,7 +18500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1298862704}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.16400146, y: -0.59999996, z: -10.437}
+  m_LocalPosition: {x: -0.09, y: -0.59999996, z: -11.01}
   m_LocalScale: {x: 0.16103756, y: 0.02, z: 0.2715586}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21386,7 +21386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.7056604, g: 0.051925875, b: 0.051925875, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -21400,13 +21400,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 98
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0000
+  m_Text: 7609
 --- !u!222 &1696723242
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22552,7 +22552,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847392610}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.391, y: 0.385, z: 0.009}
+  m_LocalPosition: {x: 0.07, y: 0.34, z: -0.12}
   m_LocalScale: {x: 0.16103755, y: 0.02, z: 0.2715586}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23529,9 +23529,6 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 100
   isDead: 0
-  increaseHealth: 20
-  damageAmount: 10
-  damageInterval: 5
   attackSound: {fileID: 8300000, guid: dd97895567e4e994192d534490ba683a, type: 3}
   healthbar: {fileID: 467480104}
   health: {fileID: 791659251}
@@ -24546,7 +24543,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2115397249}
   m_LocalRotation: {x: -0, y: -0.4922989, z: -0, w: 0.87042624}
-  m_LocalPosition: {x: -7.59, y: -0.52, z: -14.76}
+  m_LocalPosition: {x: -7.258, y: -0.52, z: -14.207}
   m_LocalScale: {x: 0.16103756, y: 0.02, z: 0.27155867}
   m_ConstrainProportionsScale: 0
   m_Children: []
