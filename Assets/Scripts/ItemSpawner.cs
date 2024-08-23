@@ -7,11 +7,13 @@ public class ItemSpawner : MonoBehaviour
     public GameObject healthBarPrefab;
     public GameObject batteryPrefab;
     public GameObject keyPrefab;
+    public GameObject ammoPrefab;
 
 
     public int numberOfHealthBars = 5;
     public int numberOfBatteries = 5;
     public int numberOfKeys = 3;
+    public int numberOfAmmo = 25;
 
     public GameObject plane; 
     private Vector3 planeSize;
@@ -19,6 +21,7 @@ public class ItemSpawner : MonoBehaviour
     public GameObject healthBarHeightReference;
     public GameObject batteryHeightReference;
     public GameObject keyHeightReference;
+    public GameObject ammoHeightReference;
 
 
     public LayerMask Ground; 
@@ -31,6 +34,7 @@ public class ItemSpawner : MonoBehaviour
         SpawnItems(healthBarPrefab, numberOfHealthBars, healthBarHeightReference);
         SpawnItems(batteryPrefab, numberOfBatteries, batteryHeightReference);
         SpawnItems(keyPrefab, numberOfKeys, keyHeightReference);
+        SpawnItems(ammoPrefab, numberOfAmmo, ammoHeightReference);
     }
 
     void SpawnItems(GameObject itemPrefab, int itemCount, GameObject heightReference)

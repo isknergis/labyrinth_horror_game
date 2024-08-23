@@ -31,6 +31,11 @@ public class FlashlightController : MonoBehaviour
 
 
 
+
+
+    public float distance = 4f;
+
+
     void Awake()
     {
         if (instance == null)
@@ -71,8 +76,12 @@ public class FlashlightController : MonoBehaviour
             UpdateFlashLightUI();
 
         }
+        if (Input.GetKeyDown(KeyCode.T)) // R tuþuna basýldýðýnda
+        {
+            BatteryCount();
+        }
 
-        if(batteryHealth <= 0)
+        if (batteryHealth <= 0)
         {
             if(batteryCount > 0)
             {
@@ -115,6 +124,22 @@ public class FlashlightController : MonoBehaviour
         spotLight.DOIntensity(currentIntensity, 2);
         UpdateFlashLightUI();
     }
+
+    void BatteryCount()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, distance); // shootPoint yerine transform.position kullanýn
+        foreach (var collider in hitColliders)
+        {
+            Battery battery = collider.GetComponent<Battery>();
+            if (battery != null)
+            {
+                battery.Collect(); // Ammo scriptindeki Collect() metodu çaðrýlýr
+                IncreaseBatteryCount(); // Pilleri artýrýr
+                break; // Bir pil bulduktan sonra döngüyü durdurur
+            }
+        }
+    }
+
     public void IncreaseBatteryCount()
     {
         batteryCount++;

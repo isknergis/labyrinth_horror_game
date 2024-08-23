@@ -14,7 +14,7 @@ public class Fire : MonoBehaviour
     public float rateOfFire;
     public float weaponRange;
     public float damage = 10f;
-    public float pickupRange = 4f; // Mermi toplama mesafesi
+    public float pickupRange = 4f;
 
     public Transform shootPoint;
 
@@ -86,7 +86,7 @@ public class Fire : MonoBehaviour
             {
                 ammo.Collect();
                 IncreaseAmmoCount();
-                break; // Bir mermi bulduktan sonra döngüyü durdur
+                break; 
             }
         }
     }

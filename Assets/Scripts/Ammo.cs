@@ -19,6 +19,7 @@ public class Ammo : Collectable
         Debug.Log("Collect metodu çalýþtý");
         base.Collect();
 
+        
 
 
     }

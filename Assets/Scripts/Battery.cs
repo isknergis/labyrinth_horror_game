@@ -15,12 +15,6 @@ public class Battery :Collectable
     {
         base.Collect();
 
-        if(flashLight)
-        {
-            flashLight.IncreaseBatteryCount();
-        }
-
-
     }
 
 }

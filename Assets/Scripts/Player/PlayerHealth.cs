@@ -7,6 +7,7 @@ using DG.Tweening;
 using static UnityEngine.GraphicsBuffer;
 
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 
 public class PlayerHealth : MonoBehaviour
@@ -23,6 +24,9 @@ public class PlayerHealth : MonoBehaviour
 
     private List<Transform> enemies;
     private bool isTakingDamage = false;
+
+    public float distance = 4f;
+
 
     void Start()
     {
@@ -47,6 +51,10 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth = 0;
             Die();
+        }
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            HealthBarCount();
         }
     }
 
@@ -97,9 +105,25 @@ public class PlayerHealth : MonoBehaviour
         CancelInvoke("CheckAndDamagePlayer");
     }
 
-    public void IncreaseHealth(float amount)
+    public void HealthBarCount()
     {
-        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, distance); // shootPoint yerine transform.position kullanýn
+        foreach (var collider in hitColliders)
+        {
+            HealthBar healthBar = collider.GetComponent<HealthBar>();
+            if (healthBar != null)
+            {
+               healthBar.Collect(); // Ammo scriptindeki Collect() metodu çaðrýlýr
+              IncreaseHealth();
+                break; // Bir pil bulduktan sonra döngüyü durdurur
+            }
+        }
+    }
+    public void IncreaseHealth()
+    {
+        float amount = 20;
+        currentHealth = amount+ currentHealth;
         UpdateHealthBar();
         Debug.Log("Health increased.");
     }
