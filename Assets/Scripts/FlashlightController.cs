@@ -6,11 +6,6 @@ using DG.Tweening;
 
 using UnityEngine.UI;
 
-
-
-
-
-
 public class FlashlightController : MonoBehaviour
 {
     [SerializeField] private AudioClip AClip;

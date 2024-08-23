@@ -1,30 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Fire : MonoBehaviour
 {
+    [SerializeField] private Text currentAmmoUI;
+
     RaycastHit hit;
 
-    bool isReloding;
     public ParticleSystem muzzleFlash;
     public int currentAmmo = 8;
-    public int maxAmmo = 12;
-    public int carriedAmmo = 60;
-
-    [SerializeField]
-    float rateOfFire;
-    float nextFire = 0;
-    [SerializeField]
-    float weaponRange;
+    public float rateOfFire;
+    public float weaponRange;
     public float damage = 10f;
+    public float pickupRange = 4f; // Mermi toplama mesafesi
 
     public Transform shootPoint;
 
-    EnemyHealth enemy;
+    float nextFire = 0;
 
     void Start()
     {
+        currentAmmoUI.text = currentAmmo.ToString();
         muzzleFlash.Stop();
     }
 
@@ -34,14 +32,10 @@ public class Fire : MonoBehaviour
         {
             Shoot();
         }
-        else if (Input.GetButton("Fire1") && currentAmmo <= 0 && !isReloding)
+
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            EmptyFire();
-        }
-        else if (Input.GetKeyDown(KeyCode.R) && currentAmmo < maxAmmo && !isReloding)
-        {
-            isReloding = true;
-            Reload();
+            TryPickupAmmo();
         }
     }
 
@@ -51,6 +45,9 @@ public class Fire : MonoBehaviour
         {
             nextFire = Time.time + rateOfFire;
             currentAmmo--;
+            currentAmmoUI.text = currentAmmo.ToString();
+            muzzleFlash.Play();
+            StartCoroutine(pistolEffect());
             ShootRay();
         }
     }
@@ -79,10 +76,19 @@ public class Fire : MonoBehaviour
         }
     }
 
-    void Reload()
+    void TryPickupAmmo()
     {
-        if (carriedAmmo <= 0) return;
-        StartCoroutine(ReloadCountDown(2f));
+        Collider[] hitColliders = Physics.OverlapSphere(shootPoint.position, pickupRange);
+        foreach (var collider in hitColliders)
+        {
+            Ammo ammo = collider.GetComponent<Ammo>();
+            if (ammo != null)
+            {
+                ammo.Collect();
+                IncreaseAmmoCount();
+                break; // Bir mermi bulduktan sonra döngüyü durdur
+            }
+        }
     }
 
     void EmptyFire()
@@ -90,6 +96,7 @@ public class Fire : MonoBehaviour
         if (Time.time > nextFire)
         {
             nextFire -= Time.time + rateOfFire;
+            Debug.Log("No ammo left!");
         }
     }
 
@@ -99,21 +106,10 @@ public class Fire : MonoBehaviour
         muzzleFlash.Stop();
     }
 
-    IEnumerator ReloadCountDown(float timer)
+    public void IncreaseAmmoCount()
     {
-        while (timer > 0f)
-        {
-            timer -= Time.deltaTime;
-            yield return null;
-        }
-
-        if (timer <= 0)
-        {
-            isReloding = false;
-            int needed = maxAmmo - currentAmmo;
-            int toDeduct = (carriedAmmo >= needed) ? needed : carriedAmmo;
-            carriedAmmo -= toDeduct;
-            currentAmmo += toDeduct;
-        }
+        currentAmmo++;
+        Debug.Log("Ammo eklendi");
+        currentAmmoUI.text = currentAmmo.ToString();
     }
 }
